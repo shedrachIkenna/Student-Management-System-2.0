@@ -37,7 +37,7 @@ def create_student():
         new_student = Student(name, id, gpa)
     
     students_db.append(new_student)
-    print("{name} added successfully")
+    print(f"{name} added successfully")
 
 
 def read_student():
@@ -102,11 +102,41 @@ def delete_student():
     
     print("Student not found")
 
-create_student()
 
-print("ALL STUDENTS IN THE SYSTEM")
-for student in students_db:
-    print(student)
+def list_all_students():
+    if not students_db:
+        print("No students found!")
+    else:
+        print("\nAll Students: ")
+        for students in students_db:
+            print(students)
 
-read_student()
-update_student()
+def main():
+    while True:
+        print("\n===== Student Management System =====")
+        print("1. Add Student")
+        print("2. View Student")
+        print("3. Update Student")
+        print("4. Delete Student")
+        print("5. List all Students")
+        print("6. Exit")
+
+        choice = input("Choose an option (1-6): ")
+
+        if choice == "1":
+            create_student()
+        elif choice == "2":
+            read_student()
+        elif choice == "3":
+            update_student()
+        elif choice == "4":
+            delete_student()
+        elif choice == "5":
+            list_all_students()
+        elif choice == "6":
+            print("Goodbye!")
+            break
+        else:
+            print("invalid option, Try again!")
+
+main()

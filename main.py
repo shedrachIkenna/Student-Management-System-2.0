@@ -4,7 +4,7 @@ class Student:
         self.id = id 
         self.gpa = gpa 
     
-    def display_details(self):
+    def display_info(self):
         print(f"Name: {self.name}")
         print(f"Student ID: {self.id}")
         print(f"GPA: {self.gpa}")
@@ -34,7 +34,23 @@ def create_student():
     students_db.append(new_student)
     print("{name} added successfully")
 
+
+def read_student():
+    id = int(input("Enter student ID to view student info: "))
+
+    found = False 
+    for student in students_db:
+        if student.id == id:
+            print("\nStudent Found: ")
+            student.display_info()
+            found = True 
+            break
+    
+    if not found:
+        print("Student not found!\n")
+
 create_student()
 
+print("ALL STUDENTS IN THE SYSTEM")
 for student in students_db:
     print(student)

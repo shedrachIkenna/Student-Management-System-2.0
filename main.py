@@ -14,8 +14,13 @@ class Student:
 
 class GraduateStudent(Student):
     def __init__(self, name, id, gpa, thesis):
-        super.__init__(name, id, gpa)
+        super().__init__(name, id, gpa)
         self.thesis = thesis    
+    
+    def display_info(self):
+        super().display_info()
+        print(f"Thesis Title: {self.thesis}")
+    
 
 students_db = []
 
@@ -49,8 +54,45 @@ def read_student():
     if not found:
         print("Student not found!\n")
 
+def update_student():
+    id = int(input("Enter student ID to update student credentials: "))
+
+    for student in students_db:
+        if student.id == id:
+            print("\nCurrent information")
+            student.display_info()
+
+            print("What would you like to update? ")
+            print("1. Name")
+            print("2. GPA")
+            if isinstance(student, GraduateStudent):
+                print("3. Thesis")
+
+            choice = input("Enter choice (1/2/3): ")
+            if choice == "1":
+                new_name = input("Enter new name: ")
+                student.name = new_name
+            elif choice == "2":
+                new_gpa = float(input("Enter new GPA: "))
+                student.gpa = new_gpa
+            elif choice == "3" and isinstance(student, GraduateStudent):
+                new_thesis = input("Enter new thesis title: ")
+                student.thesis = new_thesis
+            else:
+                print("Invalid choice!")
+                return
+            
+            print("\nStudent info updated successfully!")
+            student.display_info()
+            return
+    print("Student not found!")
+
+
 create_student()
 
 print("ALL STUDENTS IN THE SYSTEM")
 for student in students_db:
     print(student)
+
+read_student()
+update_student()

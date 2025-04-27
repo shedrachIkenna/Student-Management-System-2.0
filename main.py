@@ -87,6 +87,20 @@ def update_student():
             return
     print("Student not found!")
 
+def delete_student():
+    id = int(input("Enter student ID you want to delete"))
+
+    for student in students_db:
+        if student.id == id:
+            confirm = input(f"Are you sure you want to delete {student.name}? (y/n)").lower()
+            if confirm == "y":
+                students_db.remove(student)
+                print(f"Student {student.name} deleted successfully")
+            else:
+                print("Deletion cancelled")
+            return
+    
+    print("Student not found")
 
 create_student()
 

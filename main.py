@@ -1,3 +1,21 @@
+import pickle
+import os 
+
+DATA_FILE = "student.pkl"
+
+def save_data():
+    with open(DATA_FILE, "wb") as f:
+        pickle.dump(students_db, f)
+
+def load_data():
+    global students_db
+    if os.path.exists(DATA_FILE):
+        with open(DATA_FILE, "rb") as f:
+            students_db = pickle.load(f)
+    else:
+        students_db = []
+
+
 class Student:
     def __init__(self, name, id, gpa):
         self.name = name 
@@ -37,6 +55,7 @@ def create_student():
         new_student = Student(name, id, gpa)
     
     students_db.append(new_student)
+    save_data()
     print(f"{name} added successfully")
 
 
@@ -82,6 +101,7 @@ def update_student():
                 print("Invalid choice!")
                 return
             
+            save_data()
             print("\nStudent info updated successfully!")
             student.display_info()
             return
@@ -95,6 +115,7 @@ def delete_student():
             confirm = input(f"Are you sure you want to delete {student.name}? (y/n)").lower()
             if confirm == "y":
                 students_db.remove(student)
+                save_data()
                 print(f"Student {student.name} deleted successfully")
             else:
                 print("Deletion cancelled")
@@ -112,6 +133,7 @@ def list_all_students():
             print(students)
 
 def main():
+    load_data()
     while True:
         print("\n===== Student Management System =====")
         print("1. Add Student")

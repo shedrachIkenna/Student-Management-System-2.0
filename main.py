@@ -43,20 +43,29 @@ class GraduateStudent(Student):
 students_db = []
 
 def create_student():
-    name = input("Enter student name: ")
-    id = int(input("Enter student ID: "))
-    gpa = float(input("Enter student GPA: "))
-    is_grad = input("Are you a graduate (y/n): ")
+    try:
+        name = input("Enter student name: ")
+        id = int(input("Enter student ID: "))
 
-    if is_grad == "y":
-        thesis = input("Enter thesis title: ")
-        new_student = GraduateStudent(name, id, gpa, thesis)
-    else:
-        new_student = Student(name, id, gpa)
-    
-    students_db.append(new_student)
-    save_data()
-    print(f"{name} added successfully")
+        # Prevent duplicate ID
+        if any(s.id for s in students_db):
+            print("A student with this ID already exists")
+            return
+        
+        gpa = float(input("Enter student GPA: "))
+        is_grad = input("Are you a graduate (y/n): ")
+
+        if is_grad == "y":
+            thesis = input("Enter thesis title: ")
+            new_student = GraduateStudent(name, id, gpa, thesis)
+        else:
+            new_student = Student(name, id, gpa)
+        
+        students_db.append(new_student)
+        save_data()
+        print(f"{name} added successfully")
+    except ValueError:
+        print(f"Invalid input. ID must be an integer and GPA must be a number!")
 
 
 def read_student():

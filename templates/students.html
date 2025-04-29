@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>All Students</h1>
+    {% if students %}
+    <ul>
+        {% for student in students %}
+            <li>
+                {{ student.name }} | ID: {{ student.id }} | GPA: {{ student.gpa }} 
+                {% if student.__class__.__name__ == "GraduateStudent" %}
+                    | Thesis: {{ student.thesis }}
+                {% endif %}
+            </li>
+        {% endfor %}
+    </ul>
+    {% else %}
+        <p>No students yet.</p>
+    {% endif %}
+    <a href="/">Back to Home</a>
+</body>
+</html>

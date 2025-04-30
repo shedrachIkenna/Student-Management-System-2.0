@@ -3,7 +3,7 @@ from models import Student, GraduateStudent
 from storage import load_data, save_data
 
 app = Flask(__name__)
-students_db = load_data()
+students_db = load_data() or []
 
 @app.route("/")
 def home():
@@ -13,14 +13,14 @@ def home():
 def list_students():
     return render_template("students.html", students=students_db)
 
-@app.route("/add_student")
+@app.route("/add_student", methods = ["POST", "GET"])
 def add_student():
     if request.method == "POST":
         name = request.form["name"]
         id = int(request.form["id"])
         gpa = float(request.form["gpa"])
-        is_grad = request.form.get["is_grad"]
-        thesis = request.form.get["thesis", ""]
+        is_grad = request.form.get("is_grad")
+        thesis = request.form.get("thesis", "")
 
         if is_grad:
             student = GraduateStudent(name, id, gpa, thesis)

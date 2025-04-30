@@ -2,8 +2,12 @@ import pickle
 import os 
 
 DATA_FILE = "student.pkl"
+students_db = []
 
-def save_data():
+def save_data(data=None):
+    global students_db
+    if data is not None:
+        students_db = None
     with open(DATA_FILE, "wb") as f:
         pickle.dump(students_db, f)
 
@@ -14,3 +18,4 @@ def load_data():
             students_db = pickle.load(f)
     else:
         students_db = []
+    return students_db

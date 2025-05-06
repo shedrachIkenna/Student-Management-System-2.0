@@ -34,6 +34,22 @@ def add_student():
     
     return render_template("add_student.html")
 
+@app.route("/edit_student/<int:student_id>", methods=["GET", "POST"])
+def edit_student(student_id):
+    student = next((s for s in students_db if s.id == student_id), None)
+    if not student:
+        return "Student not found", 404
+    if request.method == "POST":
+        student.name = request.form["name"]
+        student.gpa = float(request.form["gpa"])
+        if isinstance(student, GraduateStudent):
+            student.thesis = request.form.get("thesis", "")
+        
+        save_data(students_db)
+        return redirect(url_for("list_students"))
+    
+    return render_template("edit_student.html", student=student)
+
 
 if __name__ == "__main__":
     app.run(debug=True)

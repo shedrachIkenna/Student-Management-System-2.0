@@ -50,6 +50,12 @@ def edit_student(student_id):
     
     return render_template("edit_student.html", student=student)
 
+@app.route("/delete_student/<int:student_id>", methods=["Post"])
+def delete_student(student_id):
+    global students_db
+    students_db = [s for s in students_db if s.id != student_id]
+    save_data(students_db)
+    return redirect(url_for("list_students"))
 
 if __name__ == "__main__":
     app.run(debug=True)

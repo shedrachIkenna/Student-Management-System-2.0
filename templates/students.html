@@ -15,6 +15,7 @@
                 {% if student.__class__.__name__ == "GraduateStudent" %}
                     | Thesis: {{ student.thesis }}
                 {% endif %}
+                | <a href="{{ url_for('edit_student', student_id=student.id) }}">Edit</a>
             </li>
         {% endfor %}
     </ul>

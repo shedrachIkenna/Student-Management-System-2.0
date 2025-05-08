@@ -9,7 +9,7 @@ def create_student():
         id = int(input("Enter student ID: "))
 
         # Prevent duplicate ID
-        if any(s.id for s in students_db):
+        if any(s.id == id for s in students_db):
             print("A student with this ID already exists")
             return
         

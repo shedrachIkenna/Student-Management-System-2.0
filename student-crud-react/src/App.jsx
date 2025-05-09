@@ -10,7 +10,19 @@ function App() {
       .catch(err => console.log("Failed to fetch students", err))
   }, [])
   return (
-    <h1>Student Management Student</h1>
+    <div style={{ padding: "20px" }}>
+      <h1>Student Management System</h1>
+      <ul>
+        {students.map((student) => {
+          <li key={student.student_id}>
+            <strong>{student.name}</strong> ({student.type}) - GPA: {student.gpa}
+            {student.type == "GraduateStudent" && (
+              <div>Thesis: {student.thesis_title}</div>
+            )}
+          </li>
+        })}
+      </ul>
+    </div>
   )
 }
 

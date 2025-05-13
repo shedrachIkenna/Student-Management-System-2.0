@@ -7,6 +7,7 @@ function StudentForm({ onStudentAdded }){
     const [thesis, setThesis] = useState("")
 
     const handleSubmit = async (e) => {
+        console.log("test")
         e.preventDefault()
         const payload = {
             name, 

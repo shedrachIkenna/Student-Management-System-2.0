@@ -1,4 +1,4 @@
-from models import Student, GraduateStudent
+from student_api.models import Student, GraduateStudent
 from storage import save_data, load_data
 
 students_db = load_data()

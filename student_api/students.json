@@ -1,0 +1,1 @@
+[{"name": "John", "student_id": 7, "gpa": 4, "type": "GraduateStudent", "thesis_title": "AI in healthcare"}, {"name": "Stacy", "student_id": 8, "gpa": 3, "type": "GraduateStudent", "thesis_title": "LLM finetuning"}]

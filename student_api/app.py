@@ -22,8 +22,8 @@ def load_data():
         return students
     
 def save_data(students):
-    with open(DATA_FILE, "W") as f:
-        json.dump([s.to_dict for s in students], f)
+    with open(DATA_FILE, "w") as f:
+        json.dump([s.to_dict() for s in students], f)
 
 
 students_db = load_data()
@@ -32,7 +32,7 @@ students_db = load_data()
 
 @app.route("/api/students", methods=["GET"])
 def get_students():
-    return jsonify([s.to_dict for s in students_db])
+    return jsonify([s.to_dict() for s in students_db])
 
 
 @app.route("/api/students", methods=["POST"])
@@ -63,12 +63,13 @@ def update_student(student_id):
             return jsonify(students_db[i].to_dict())
     return jsonify({"error": "Student not found"}), 404
 
-@app.route("/api/students/<student_id>", methods=["DELETE"])
+@app.route("/api/students/<int:student_id>", methods=["DELETE"])  # Added int: type converter
 def delete_student(student_id):
     global students_db 
-    students_db = [s for s in students_db if s.students_db != student_id]
+    students_db = [s for s in students_db if s.student_id != student_id]  # Fixed attribute name
     save_data(students_db)
     return jsonify({"message": "Deleted"}), 200
 
 if __name__ == "__main__":
     app.run(debug=True)
+
